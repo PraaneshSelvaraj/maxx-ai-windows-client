@@ -4,6 +4,7 @@ import webbrowser
 import pickle
 import os
 import socket
+from includes import tts
 
 data = {}
 encoding = 'ascii'
@@ -70,15 +71,18 @@ while True:
 
         else:
             #Commands send by server
-            return_msg = "FALSE"
             task, msg = message.split("~")
             
             if task == 'WEBBROWSER':
                 #opening the link using webbrowser
+                client.send("TRUE".encode(encoding))
                 webbrowser.open(msg)
-                return_msg ='TRUE'
-               
-            client.send(return_msg.encode(encoding))
+
+            if task == 'speak':
+                #speak the text - redirect_output
+                client.send("TRUE".encode(encoding))
+                tts.speak(msg)
+
 
     except Exception as e:
         if "timed out" in "{}".format(e):

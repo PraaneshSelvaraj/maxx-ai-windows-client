@@ -1,0 +1,6 @@
+{
+   "defaults": {
+      "voice_engine": "wit.ai",
+      "voice": "Charlie"
+   }
+}
